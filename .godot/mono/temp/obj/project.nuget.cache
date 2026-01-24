@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "QO3mVn3uDC0GstT5LLCBz3g14PlDSurDa7bgJ92gcvBB26nDTj0GqNRlu/1QqlCu3MjL2ZNkc5+/dEnObqB2Ew==",
+  "success": true,
+  "projectFilePath": "/home/te1ny/work/godot/contra/Contra.csproj",
+  "expectedPackageFiles": [
+    "/home/te1ny/.nuget/packages/godot.sourcegenerators/4.5.1/godot.sourcegenerators.4.5.1.nupkg.sha512",
+    "/home/te1ny/.nuget/packages/godotsharp/4.5.1/godotsharp.4.5.1.nupkg.sha512",
+    "/home/te1ny/.nuget/packages/godotsharpeditor/4.5.1/godotsharpeditor.4.5.1.nupkg.sha512",
+    "/home/te1ny/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.22/microsoft.aspnetcore.app.ref.8.0.22.nupkg.sha512"
+  ],
+  "logs": []
+}
