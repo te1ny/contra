@@ -1,4 +1,0 @@
-res://src/entities/components/AttackComponent.cs
-res://src/entities/components/HealthComponent.cs
-res://src/entities/components/HitboxComponent.cs
-res://src/entities/components/MoveComponent.cs
