@@ -64,7 +64,7 @@ public partial class HealthComponent : Node2D
 		}
 	}
 
-    [Export] public double Health
+	[Export] public double Health
 	{ 
 		get; 
 		private set
