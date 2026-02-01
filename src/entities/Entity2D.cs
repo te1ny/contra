@@ -9,7 +9,7 @@ using Components.Move;
 public partial class Entity2D : CharacterBody2D
 {
 // VARIABLES
-    [Export] protected HealthComponent   _healthComponent;
-    [Export] protected MoveComponent2D   _moveComponent;
-    [Export] protected HitboxComponent2D _hitboxComponent;
+	[Export] protected HealthComponent   _healthComponent;
+	[Export] protected MoveComponent2D   _moveComponent;
+	[Export] protected HitboxComponent2D _hitboxComponent;
 }
