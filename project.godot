@@ -20,8 +20,10 @@ config/features=PackedStringArray("4.6", "C#", "Forward Plus")
 
 [display]
 
-window/size/viewport_width=1920
-window/size/viewport_height=1080
+window/size/viewport_width=480
+window/size/viewport_height=270
+window/size/window_width_override=1920
+window/size/window_height_override=1080
 window/stretch/mode="canvas_items"
 
 [dotnet]
@@ -58,7 +60,14 @@ space={
 
 [layer_names]
 
+2d_render/layer_1="Wall"
+2d_render/layer_5="Book"
 2d_physics/layer_1="Wall"
 2d_physics/layer_2="Entity"
 2d_physics/layer_5="Player"
 2d_physics/layer_6="Enemy"
+2d_physics/layer_7="Item"
+
+[rendering]
+
+viewport/hdr_2d=true
