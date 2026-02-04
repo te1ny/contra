@@ -6,6 +6,13 @@ using Contra.Src.Entities;
 [GlobalClass]
 public partial class MoveComponent2D : Node2D
 {
+	public override void _Ready()
+	{
+		// Godot cannot correctly use C# get/set from properties
+		// so you need to reset the value to invoke get/set
+		Enabled = Enabled;
+	}
+
 // FUNCTIONS
 	public override void _PhysicsProcess(double delta)
 	{
@@ -26,7 +33,7 @@ public partial class MoveComponent2D : Node2D
 		}
 	}
 
-	[Export] public Vector2 LastDirection
+	public Vector2 LastDirection
 	{
 		get;
 		private set;
@@ -118,6 +125,7 @@ public partial class MoveComponent2D : Node2D
 
 			if (Mathf.Abs(field.X) < 1.0f) field.X = 0; // jitter fix
 
+			// Ideally, there should not be here
 			// Sprite flip
 			if (Mathf.IsZeroApprox(field.X))
 			{

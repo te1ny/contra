@@ -7,11 +7,11 @@ using Godot;
 public partial class HitboxComponent2D : Area2D
 {
 // VARIABLES
-    public void TakeDamage(double damage)
-    {
-        _healthComponent.DecreaseHealth(damage);       
-    }
+	public void TakeDamage(double damage)
+	{
+		_healthComponent.DecreaseHealth(damage);       
+	}
 
 // VARIABLES
-    [Export] private HealthComponent _healthComponent;
+	[Export] private HealthComponent _healthComponent;
 }

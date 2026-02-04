@@ -1,15 +1,17 @@
 [gd_scene format=3 uid="uid://chj6c848qfx8h"]
 
-[ext_resource type="Script" uid="uid://jc4fdxobiwdr" path="res://src/entities/player/Player2D.cs" id="1_nvek7"]
-[ext_resource type="Script" uid="uid://cq6nxbh3vrheh" path="res://src/entities/components/health/HealthComponent.cs" id="2_nwmiw"]
-[ext_resource type="Script" uid="uid://uukyujh7gf6i" path="res://src/entities/components/move/MoveComponent2D.cs" id="3_fjy3f"]
-[ext_resource type="Script" uid="uid://d4f5mwvq34i0w" path="res://src/entities/player/PlayerMoveLogic2D.cs" id="4_dnplh"]
-[ext_resource type="Script" uid="uid://dw7e1dcenjnsd" path="res://src/entities/components/hit/HitboxComponent2D.cs" id="5_gkoa6"]
+[ext_resource type="Script" uid="uid://brsidrx71ygl2" path="res://src/entities/player/Player2D.cs" id="1_nvek7"]
+[ext_resource type="Script" uid="uid://db6d0ory3qli1" path="res://src/entities/components/health/HealthComponent.cs" id="2_nwmiw"]
+[ext_resource type="Script" uid="uid://dkohypo1nryf4" path="res://src/entities/components/move/MoveComponent2D.cs" id="3_fjy3f"]
+[ext_resource type="Script" uid="uid://byeoe7xtjs7a8" path="res://src/entities/player/PlayerMoveLogic2D.cs" id="4_dnplh"]
+[ext_resource type="Script" uid="uid://cghlqp6vo2o65" path="res://src/entities/components/hit/HitboxComponent2D.cs" id="5_gkoa6"]
 [ext_resource type="Texture2D" uid="uid://bwg448j71jr7w" path="res://src/entities/player/sprites/ArchDemonBasicAtk001-Sheet.png" id="6_gkoa6"]
-[ext_resource type="Script" uid="uid://qgggh46iabo4" path="res://src/entities/player/DashAbility2D.cs" id="6_wrrg1"]
+[ext_resource type="Script" uid="uid://c8fvula85dl7t" path="res://src/entities/player/DashAbility2D.cs" id="6_wrrg1"]
 [ext_resource type="Texture2D" uid="uid://cl37slqfsj0v1" path="res://src/entities/player/sprites/ArchDemonDeath001-Sheet.png" id="7_wrrg1"]
 [ext_resource type="Texture2D" uid="uid://dwq2ni4rrjryv" path="res://src/entities/player/sprites/ArchDemonHurt001-Sheet.png" id="8_oupbo"]
 [ext_resource type="Texture2D" uid="uid://bopcmabg4pnp6" path="res://src/entities/player/sprites/ArchDemonIdle001-Sheet.png" id="9_8olqv"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_wrrg1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_t8rb3"]
 atlas = ExtResource("6_gkoa6")
@@ -275,21 +277,20 @@ height = 48.0
 
 [node name="Player2D" type="CharacterBody2D" unique_id=1029373410 node_paths=PackedStringArray("_healthComponent", "_moveComponent", "_hitboxComponent")]
 scale = Vector2(0.8, 0.8)
-collision_layer = 2
+collision_layer = 18
+collision_mask = 65
 script = ExtResource("1_nvek7")
 _healthComponent = NodePath("Components/HealthComponent")
 _moveComponent = NodePath("Components/MoveComponent2D")
 _hitboxComponent = NodePath("Components/HitboxComponent2D")
-metadata/_custom_type_script = "uid://jc4fdxobiwdr"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1553505836]
 texture_filter = 1
+material = SubResource("CanvasItemMaterial_wrrg1")
 position = Vector2(-7.1054274e-15, 3.75)
 sprite_frames = SubResource("SpriteFrames_pcppg")
-animation = &"death"
+animation = &"idle"
 autoplay = "idle"
-frame = 7
-frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=745487721]
 shape = SubResource("CapsuleShape2D_gkoa6")
@@ -300,8 +301,7 @@ shape = SubResource("CapsuleShape2D_gkoa6")
 scale = Vector2(0.99999994, 0.99999994)
 script = ExtResource("2_nwmiw")
 MaxHealth = 100.0
-Health = 10.0
-metadata/_custom_type_script = "uid://cq6nxbh3vrheh"
+Health = 100.0
 
 [node name="MoveComponent2D" type="Node2D" parent="Components" unique_id=303918711 node_paths=PackedStringArray("_target", "_logic", "_sprite")]
 scale = Vector2(0.99999994, 0.99999994)
@@ -314,11 +314,9 @@ TimeToPeak = 0.4
 _target = NodePath("../..")
 _logic = NodePath("PlayerMoveLogic2D")
 _sprite = NodePath("../../AnimatedSprite2D")
-metadata/_custom_type_script = "uid://uukyujh7gf6i"
 
 [node name="PlayerMoveLogic2D" type="Node2D" parent="Components/MoveComponent2D" unique_id=447443905]
 script = ExtResource("4_dnplh")
-metadata/_custom_type_script = "uid://d4f5mwvq34i0w"
 
 [node name="HitboxComponent2D" type="Area2D" parent="Components" unique_id=1160286470 node_paths=PackedStringArray("_healthComponent")]
 scale = Vector2(0.99999994, 0.99999994)
@@ -326,7 +324,6 @@ collision_layer = 16
 collision_mask = 32
 script = ExtResource("5_gkoa6")
 _healthComponent = NodePath("../HealthComponent")
-metadata/_custom_type_script = "uid://dw7e1dcenjnsd"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Components/HitboxComponent2D" unique_id=216167042]
 shape = SubResource("CapsuleShape2D_wrrg1")
@@ -343,4 +340,3 @@ _dashAnimationSpeed = 3.0
 _animationAfterDash = &"idle"
 _target = NodePath("../..")
 _moveComponent = NodePath("../../Components/MoveComponent2D")
-metadata/_custom_type_script = "uid://qgggh46iabo4"

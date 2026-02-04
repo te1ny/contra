@@ -5,4 +5,8 @@
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <LangVersion>14</LangVersion>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Firebelley.GodotUtilities" Version="6.0.0" />
+  </ItemGroup>
 </Project>
