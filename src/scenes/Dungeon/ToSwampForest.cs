@@ -1,4 +1,3 @@
-using Contra.Src.Entities.Player;
 using Godot;
 
 public partial class ToSwampForest : Area2D
