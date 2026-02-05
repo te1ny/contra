@@ -1,82 +1,42 @@
-namespace Contra.Src.Components.Health;
-
 using Godot;
 
-[GlobalClass, Tool]
+[GlobalClass]
 public partial class HealthComponent : Node2D
 {
-// SIGNALS
 	[Signal] public delegate void HealthChangedEventHandler(HealthChangedInfo info);
 	[Signal] public delegate void MaxHealthChangedEventHandler(HealthChangedInfo info);
 
-// FUNCTIONS
-	public void SetMaxHealth(double value)
+	private double maxHealth = 100.0;
+	private double health    = 100.0;
+
+	[Export]
+	public double MaxHealth
 	{
-		double old = MaxHealth;
-		MaxHealth = value;
-		EmitHealthSignal(SignalName.MaxHealthChanged, old, MaxHealth);
-	}
-
-	public void SetHealth(double value)
-	{
-		double old = Health;
-		Health = value;
-		EmitHealthSignal(SignalName.HealthChanged, old, Health);
-	}
-
-	public void IncreaseHealth(double value)
-	{
-		if (value == 0)
-			return;
-
-		double old = Health;
-		Health += value;
-		EmitHealthSignal(SignalName.HealthChanged, old, Health);
-	}
-
-	public void DecreaseHealth(double value)
-	{
-		if (value == 0)
-			return;
-
-		double old = Health;
-		Health -= value;
-		EmitHealthSignal(SignalName.HealthChanged, old, Health);
-	}
-
-	private void EmitHealthSignal(StringName signalName, double oldValue, double newValue)
-	{
-		HealthChangedInfo info = new()
+		get => maxHealth;
+		set
 		{
-			Old = oldValue,
-			New = newValue,
-		};
-		EmitSignal(signalName, info);
-	}
-
-// PROPERTIES
-	[Export] public double MaxHealth
-	{ 
-		get; 
-		private set
-		{
-			field = Mathf.Max(value, 0);
+			double old = maxHealth;
+			maxHealth = Mathf.Max(value, 0.0);
+			EmitSignal(SignalName.MaxHealthChanged, new HealthChangedInfo{ Old = old, New = maxHealth });
 		}
 	}
 
-	[Export] public double Health
-	{ 
-		get; 
-		private set
+	[Export]
+	public double Health
+	{
+		get => health;
+		set
 		{
-			field = Mathf.Clamp(value, 0, MaxHealth);
+			double old = health;
+			health = Mathf.Max(value, 0.0);
+			EmitSignal(SignalName.HealthChanged, new HealthChangedInfo{ Old = old, New = health });
 		}
 	}
 }
 
 public partial class HealthChangedInfo : RefCounted
 {
-// PROPERTIES
 	public double Old { get; set; }
 	public double New { get; set; }
+	public double Delta => New - Old;
 }
