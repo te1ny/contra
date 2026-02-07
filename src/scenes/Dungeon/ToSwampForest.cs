@@ -19,6 +19,12 @@ public partial class ToSwampForest : Area2D
 
 	private void OnBodyEntered(Node2D body)
 	{
+		foreach (Node child in GetParent().GetChildren())
+		{
+			if (child is Valkyrie2D)
+				return;
+		}
+
 		if (body is Player2D)
 			StartTransition();
 	}

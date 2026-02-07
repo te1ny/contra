@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://b1bv4fmk8yreu" path="res://src/scenes/Dungeon/assets/bg/3.png" id="7_t0bk7"]
 [ext_resource type="Texture2D" uid="uid://vxbltub3viwx" path="res://src/scenes/Dungeon/assets/bg/2.png" id="8_x5wik"]
 [ext_resource type="Texture2D" uid="uid://l8wbth85kqcs" path="res://src/scenes/Dungeon/assets/bg/1.png" id="9_0sa78"]
-[ext_resource type="Script" uid="uid://csdsyydpj6d4a" path="res://src/scenes/Dungeon/ToSwampForest.cs" id="10_5uufx"]
+[ext_resource type="Script" uid="uid://0dpufgm0yk6q" path="res://src/scenes/Dungeon/ToSwampForest.cs" id="10_5uufx"]
 [ext_resource type="Texture2D" uid="uid://c10qqm2ev5t84" path="res://src/scenes/Dungeon/assets/bg/0.png" id="10_hma0k"]
 [ext_resource type="PackedScene" uid="uid://cw0oobnp1dpca" path="res://src/entities/valkyrie/Valkyrie2D.tscn" id="11_xorne"]
 

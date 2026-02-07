@@ -1,0 +1,106 @@
+[gd_scene format=3 uid="uid://bgjrhiuc8oqyd"]
+
+[ext_resource type="Script" uid="uid://p36fe6eftids" path="res://src/projectiles/Projectile2D.cs" id="1_uva3f"]
+[ext_resource type="Script" uid="uid://d212dc5k4rcoh" path="res://src/entities/components/attack/AttackComponent2D.cs" id="2_81405"]
+[ext_resource type="Texture2D" uid="uid://bkjx3011gdgcx" path="res://src/projectiles/earth_spike/DruidEarthVFX001-Sheet.png" id="3_3dgld"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_81405"]
+radius = 16.096485
+height = 43.86473
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_87qxe"]
+atlas = ExtResource("3_3dgld")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wyy7d"]
+atlas = ExtResource("3_3dgld")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hx5ob"]
+atlas = ExtResource("3_3dgld")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iva36"]
+atlas = ExtResource("3_3dgld")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_127d3"]
+atlas = ExtResource("3_3dgld")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_81405"]
+atlas = ExtResource("3_3dgld")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3dgld"]
+atlas = ExtResource("3_3dgld")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xrrp2"]
+atlas = ExtResource("3_3dgld")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_po6tn"]
+atlas = ExtResource("3_3dgld")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xrrp2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_87qxe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wyy7d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hx5ob")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iva36")
+}, {
+"duration": 5.0,
+"texture": SubResource("AtlasTexture_127d3")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_81405")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_3dgld")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_xrrp2")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_po6tn")
+}],
+"loop": false,
+"name": &"default",
+"speed": 11.0
+}]
+
+[node name="EarthSpike" type="Node2D" unique_id=1032197357 node_paths=PackedStringArray("AttackComponent")]
+z_index = -8
+position = Vector2(0, 6)
+script = ExtResource("1_uva3f")
+Static = true
+AttackComponent = NodePath("AttackComponent2D")
+Lifetime = 0.85
+
+[node name="AttackComponent2D" type="Area2D" parent="." unique_id=735977786]
+collision_layer = 0
+collision_mask = 16
+script = ExtResource("2_81405")
+Damage = 20.0
+metadata/_custom_type_script = "uid://d212dc5k4rcoh"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackComponent2D" unique_id=708478828]
+rotation = 0.4660029
+shape = SubResource("CapsuleShape2D_81405")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1858021689]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_xrrp2")
+autoplay = "default"
+frame = 4
+frame_progress = 0.41091922
