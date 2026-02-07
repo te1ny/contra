@@ -1,0 +1,85 @@
+[gd_scene format=3 uid="uid://b5xa3m75ueyaj"]
+
+[ext_resource type="Script" uid="uid://p36fe6eftids" path="res://src/projectiles/Projectile2D.cs" id="1_boywj"]
+[ext_resource type="Texture2D" uid="uid://bnyo8bk2vsb3e" path="res://src/projectiles/arrow/ElfArrow001-Sheet-export.png" id="2_hxob8"]
+[ext_resource type="Script" uid="uid://d212dc5k4rcoh" path="res://src/entities/components/attack/AttackComponent2D.cs" id="3_fotyt"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fotyt"]
+atlas = ExtResource("2_hxob8")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sdprs"]
+atlas = ExtResource("2_hxob8")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ow04h"]
+atlas = ExtResource("2_hxob8")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_naihe"]
+atlas = ExtResource("2_hxob8")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4i7ix"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fotyt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sdprs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ow04h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_naihe")
+}],
+"loop": true,
+"name": &"fly",
+"speed": 10.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fotyt"]
+radius = 3.0
+
+[sub_resource type="Gradient" id="Gradient_shg6d"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_fotyt"]
+gradient = SubResource("Gradient_shg6d")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[node name="Arrow" type="Node2D" unique_id=1859095402 node_paths=PackedStringArray("AttackComponent")]
+texture_filter = 1
+script = ExtResource("1_boywj")
+AttackComponent = NodePath("AttackComponent2D")
+Speed = 250.0
+Lifetime = 5.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1873021674]
+sprite_frames = SubResource("SpriteFrames_4i7ix")
+animation = &"fly"
+autoplay = "fly"
+frame_progress = 0.8317675
+
+[node name="AttackComponent2D" type="Area2D" parent="." unique_id=692279165]
+collision_layer = 0
+collision_mask = 17
+monitorable = false
+script = ExtResource("3_fotyt")
+Damage = 10.0
+metadata/_custom_type_script = "uid://d212dc5k4rcoh"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackComponent2D" unique_id=633820147]
+position = Vector2(1, 0)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_fotyt")
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=998159550]
+position = Vector2(14, -0.5)
+scale = Vector2(0.11, 0.11)
+energy = 6.25
+texture = SubResource("GradientTexture2D_fotyt")

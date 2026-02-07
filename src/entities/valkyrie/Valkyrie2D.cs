@@ -1,5 +1,6 @@
 using Godot;
 using GodotUtilities.Logic;
+using Godot.Collections;
 
 [GlobalClass]
 public partial class Valkyrie2D : Entity2D
@@ -39,10 +40,10 @@ public partial class Valkyrie2D : Entity2D
 
 		dsm.AddStates(StateIdle);
 		dsm.AddStates(StateWalk);
-		dsm.AddStates(StateAttack, EnterStateAttack, LeaveStateAttack);
-		dsm.AddStates(StateAfterAttack, null, LeaveStateAfterAttack);
-		dsm.AddStates(StateHurt);
-		dsm.AddStates(StateDeath);
+		dsm.AddStates(StateAttack,      EnterStateAttack, LeaveStateAttack);
+		dsm.AddStates(StateAfterAttack, null,             LeaveStateAfterAttack);
+		dsm.AddStates(StateHurt,        EnterStateHurt,   LeaveStateHurt);
+		dsm.AddStates(StateDeath,       EnterStateDeath,  LeaveStateDeath);
 
 		dsm.SetInitialState(StateIdle);
 		animatedSprite2D.Play("idle");
@@ -56,6 +57,7 @@ public partial class Valkyrie2D : Entity2D
 // IDLE
 	private void StateIdle()
 	{
+		// busy wait - bad
 		if (attackTarget is not null)
 		{
 			animatedSprite2D.Play("walk");
@@ -96,7 +98,6 @@ public partial class Valkyrie2D : Entity2D
 
 	private void StateAttack()
 	{
-		// void
 	}
 
 	private void LeaveStateAttack()
@@ -105,12 +106,14 @@ public partial class Valkyrie2D : Entity2D
 		if (value >= 0 && value < 75)
 		{
 			moveComponent2D.HorizontalSpeed = 0;
-			animatedSprite2D.Play("after_attack");
+			if (animatedSprite2D.Animation != "hurt")
+				animatedSprite2D.Play("after_attack");
 		}
 		else
 		{
 			moveComponent2D.HorizontalSpeed = baseSpeed;
-			animatedSprite2D.Play("idle");
+			if (animatedSprite2D.Animation != "hurt")
+				animatedSprite2D.Play("idle");
 		}
 	}
 
@@ -134,17 +137,46 @@ public partial class Valkyrie2D : Entity2D
 	private void LeaveStateAfterAttack()
 	{
 		moveComponent2D.HorizontalSpeed = baseSpeed;
-		animatedSprite2D.Play("idle");
+		if (animatedSprite2D.Animation != "hurt")
+			animatedSprite2D.Play("idle");
 	}
 
 // HURT
+	private void EnterStateHurt()
+	{
+		float glowPower = 1.5f; 
+		animatedSprite2D.SelfModulate = new Color(1.0f * glowPower, 0.9f * glowPower, 0.9f * glowPower, 1.0f);
+		moveComponent2D.HorizontalSpeed = 0;
+	}
+
 	private void StateHurt()
 	{
 	}
 
+	private void LeaveStateHurt()
+	{
+		moveComponent2D.HorizontalSpeed = baseSpeed;
+		animatedSprite2D.SelfModulate = new Color(1, 1, 1, 1);
+		animatedSprite2D.Play("idle");
+	}
+
 // DEATH
+	private void EnterStateDeath()
+	{
+		attackTriggerArea2D.Monitoring = false;
+		walkTriggerArea2D.Monitoring   = false;
+		attackComponent2D.Monitoring   = false;
+		hitboxComponent2D.Monitorable  = false;
+		moveComponent2D.Enabled        = false;
+	}
+
 	private void StateDeath()
 	{
+	}
+
+	private void LeaveStateDeath()
+	{
+		QueueFree();
 	}
 
 // OTHER
@@ -231,13 +263,14 @@ public partial class Valkyrie2D : Entity2D
 		}
 		else if (animation == "death")
 		{
-			QueueFree();
+			dsm.ChangeState(StateIdle);
 		}
 	}
 
 	private void OnFrameChanged()
 	{
 		var animation = animatedSprite2D.Animation;
+
 		if (animation == "attack" && animatedSprite2D.Frame == 5)
 		{
 			float glowPower = 2.0f; 
@@ -248,5 +281,21 @@ public partial class Valkyrie2D : Entity2D
 		{
 			animatedSprite2D.SelfModulate = new Color(1, 1, 1, 1);
 		}
+	}
+
+	private bool AnimationIsAsync()
+	{
+		var asyncAnimations = new Array<StringName> 
+		{ 
+			"hurt", "death"
+		};
+
+		foreach (StringName asyncAnimation in asyncAnimations)
+		{
+			if (animatedSprite2D.Animation == asyncAnimation)
+				return true;
+		}
+
+		return false;
 	}
 }

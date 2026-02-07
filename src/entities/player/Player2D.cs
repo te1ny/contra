@@ -1,5 +1,6 @@
 using Godot;
 using GodotUtilities.Logic;
+using Godot.Collections;
 
 [GlobalClass]
 public partial class Player2D : Entity2D
@@ -8,10 +9,11 @@ public partial class Player2D : Entity2D
 	[Export] private MoveComponent2D   moveComponent2D;
 	[Export] private HitboxComponent2D hitboxComponent2D;
 	[Export] private AnimatedSprite2D  animatedSprite2D;
-	[Export] private double            damage;
+	[Export] private PackedScene       currentProjectile;
 
 	private Vector2 dashDirection;
 	private bool    lastFlip         = false;
+	private bool    canDash          = true;
 	private DelegateStateMachine dsm = new();
 
 	public override void _Ready()
@@ -56,7 +58,7 @@ public partial class Player2D : Entity2D
 		if (Input.IsActionPressed("space"))
 			moveComponent2D.Jump();
 
-		if (Input.IsActionJustPressed("shift"))
+		if (Input.IsActionJustPressed("shift") && canDash)
 		{
 			animatedSprite2D.Play("dash");
 			return;
@@ -71,6 +73,7 @@ public partial class Player2D : Entity2D
 // DASH
 	private void EnterStateDash()
 	{
+		canDash = false;
 		moveComponent2D.Enabled = false;
 		float glowPower = 3.0f; 
 		animatedSprite2D.SelfModulate = new Color(1.0f * glowPower, 0.9f * glowPower, 0.9f * glowPower, 1.0f);
@@ -86,6 +89,7 @@ public partial class Player2D : Entity2D
 
 	private void LeaveStateDash()
 	{
+		GetTree().CreateTimer(2.0f).Timeout += () => canDash = true;
 		animatedSprite2D.Play("dash_backward");
 	}
 
@@ -212,9 +216,44 @@ public partial class Player2D : Entity2D
 	private void OnFrameChanged()
 	{
 		var animation = animatedSprite2D.Animation;
-		if (animation == "attack" && animatedSprite2D.Frame == 5)
+		if (animation == "attack" && animatedSprite2D.Frame == 8)
 		{
-			// cast projectile
+			CreateAndCastProjectile(animatedSprite2D.FlipH ? Vector2.Left : Vector2.Right);
 		}
+	}
+
+	private void CreateAndCastProjectile(Vector2 direction)
+	{
+		Projectile2D projectile = currentProjectile.Instantiate<Projectile2D>();
+
+		Vector2 projectileResultPos;
+		projectileResultPos.X = GlobalPosition.X + Mathf.Sign(direction.X) * projectile.Position.X;
+		projectileResultPos.Y = GlobalPosition.Y + projectile.Position.Y;
+		if (direction.X < 0)
+		{
+			projectile.Rotate(Mathf.Pi);
+		}
+
+		projectile.GlobalPosition = projectileResultPos;
+		projectile.Direction      = direction;
+		projectile.Static         = false;
+
+		GetTree().Root.AddChild(projectile);
+	}
+
+	private bool AnimationIsAsync()
+	{
+		var asyncAnimations = new Array<StringName> 
+		{ 
+			"hurt", "death"
+		};
+
+		foreach (StringName asyncAnimation in asyncAnimations)
+		{
+			if (animatedSprite2D.Animation == asyncAnimation)
+				return true;
+		}
+
+		return false;
 	}
 }

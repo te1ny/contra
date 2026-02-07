@@ -1,15 +1,32 @@
 [gd_scene format=3 uid="uid://cw0oobnp1dpca"]
 
-[ext_resource type="Script" uid="uid://cx4fa3m4psuea" path="res://src/entities/valkyrie/Valkyrie2D.cs" id="1_hb4cq"]
+[ext_resource type="Script" uid="uid://d4ltaowkdfikn" path="res://src/entities/valkyrie/Valkyrie2D.cs" id="1_hb4cq"]
 [ext_resource type="Texture2D" uid="uid://dnj8y1iwhqj1x" path="res://src/entities/valkyrie/sprites/DemonKinBasicAtk001-Sheet.png" id="2_iwlc3"]
 [ext_resource type="Texture2D" uid="uid://c42mpk8xeeipl" path="res://src/entities/valkyrie/sprites/DemonKinDeath001-Sheet.png" id="3_55enf"]
 [ext_resource type="Texture2D" uid="uid://ccp3c0y2h35h1" path="res://src/entities/valkyrie/sprites/DemonKinHurt001-Sheet.png" id="4_8aqrr"]
 [ext_resource type="Texture2D" uid="uid://bhjxvs2datsg" path="res://src/entities/valkyrie/sprites/DemonKinIdle001-Sheet.png" id="5_nqtke"]
 [ext_resource type="Texture2D" uid="uid://blqdatqgyo0pk" path="res://src/entities/valkyrie/sprites/DemonKinWalk001-Sheet.png" id="6_0b7l7"]
-[ext_resource type="Script" uid="uid://dkohypo1nryf4" path="res://src/entities/components/move/MoveComponent2D.cs" id="6_8pwnq"]
-[ext_resource type="Script" uid="uid://db6d0ory3qli1" path="res://src/entities/components/health/HealthComponent.cs" id="7_0lcun"]
-[ext_resource type="Script" uid="uid://cghlqp6vo2o65" path="res://src/entities/components/hitbox/HitboxComponent2D.cs" id="8_d051d"]
-[ext_resource type="Script" uid="uid://bvjvv057g8w5u" path="res://src/entities/components/attack/AttackComponent2D.cs" id="9_r4t0g"]
+[ext_resource type="Script" uid="uid://bhurqlc436l3c" path="res://src/entities/components/move/MoveComponent2D.cs" id="6_8pwnq"]
+[ext_resource type="Script" uid="uid://bn7udry487jfg" path="res://src/entities/components/health/HealthComponent.cs" id="7_0lcun"]
+[ext_resource type="Script" uid="uid://cy7qta7lvnvi" path="res://src/entities/components/hitbox/HitboxComponent2D.cs" id="8_d051d"]
+[ext_resource type="Script" uid="uid://d212dc5k4rcoh" path="res://src/entities/components/attack/AttackComponent2D.cs" id="9_r4t0g"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uab1u"]
+radius = 14.0
+height = 48.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_swlek"]
+radius = 45.01111
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_55enf"]
+radius = 32.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_55enf"]
+size = Vector2(540, 96)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2d40k"]
+radius = 14.0
+height = 48.0
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_hxpyr"]
 
@@ -319,23 +336,6 @@ animations = [{
 "speed": 20.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2d40k"]
-radius = 14.0
-height = 48.0
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uab1u"]
-radius = 14.0
-height = 48.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_swlek"]
-radius = 45.01111
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_55enf"]
-radius = 32.0
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_55enf"]
-size = Vector2(540, 96)
-
 [node name="Valkyrie2D" type="CharacterBody2D" unique_id=1999169994 node_paths=PackedStringArray("healthComponent", "moveComponent2D", "hitboxComponent2D", "attackComponent2D", "attackTriggerArea2D", "walkTriggerArea2D", "animatedSprite2D")]
 collision_layer = 2
 script = ExtResource("1_hb4cq")
@@ -346,22 +346,8 @@ attackComponent2D = NodePath("Components/AttackComponent2D")
 attackTriggerArea2D = NodePath("Components/AttackTriggerArea2D")
 walkTriggerArea2D = NodePath("Components/WalkTriggerArea2D")
 animatedSprite2D = NodePath("AnimatedSprite2D")
-metadata/_custom_type_script = "uid://cx4fa3m4psuea"
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1398049684]
-texture_filter = 1
-material = SubResource("CanvasItemMaterial_hxpyr")
-position = Vector2(-7.1054274e-15, 3.75)
-sprite_frames = SubResource("SpriteFrames_8q3d6")
-animation = &"after_attack"
-autoplay = "idle"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1052776700]
-visible = false
-shape = SubResource("CapsuleShape2D_2d40k")
 
 [node name="Components" type="Node2D" parent="." unique_id=2031894652]
-visible = false
 
 [node name="MoveComponent2D" type="Node2D" parent="Components" unique_id=1409955160 node_paths=PackedStringArray("Target")]
 script = ExtResource("6_8pwnq")
@@ -369,43 +355,56 @@ Target = NodePath("../..")
 HorizontalSpeed = 175.0
 JumpSpeed = 200.0
 Gravity = 500.0
-metadata/_custom_type_script = "uid://dkohypo1nryf4"
 
 [node name="HealthComponent" type="Node2D" parent="Components" unique_id=99045376]
 script = ExtResource("7_0lcun")
-metadata/_custom_type_script = "uid://db6d0ory3qli1"
+MaxHealth = 300.0
+Health = 300.0
 
 [node name="HitboxComponent2D" type="Area2D" parent="Components" unique_id=1391069442 node_paths=PackedStringArray("HealthComponent")]
 collision_layer = 32
-collision_mask = 16
+collision_mask = 0
+monitoring = false
 script = ExtResource("8_d051d")
 HealthComponent = NodePath("../HealthComponent")
-metadata/_custom_type_script = "uid://cghlqp6vo2o65"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Components/HitboxComponent2D" unique_id=426999805]
 shape = SubResource("CapsuleShape2D_uab1u")
 
 [node name="AttackComponent2D" type="Area2D" parent="Components" unique_id=164934371]
-collision_layer = 32
+collision_layer = 0
 collision_mask = 16
+monitorable = false
 script = ExtResource("9_r4t0g")
 Damage = 30.0
-metadata/_custom_type_script = "uid://bvjvv057g8w5u"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Components/AttackComponent2D" unique_id=921809362]
 shape = SubResource("CircleShape2D_swlek")
 
 [node name="AttackTriggerArea2D" type="Area2D" parent="Components" unique_id=1932026994]
-collision_layer = 32
+collision_layer = 0
 collision_mask = 16
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Components/AttackTriggerArea2D" unique_id=1216807118]
 shape = SubResource("CircleShape2D_55enf")
 
 [node name="WalkTriggerArea2D" type="Area2D" parent="Components" unique_id=1320564250]
-collision_layer = 32
+collision_layer = 0
 collision_mask = 16
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Components/WalkTriggerArea2D" unique_id=1841871676]
 position = Vector2(0, -25)
 shape = SubResource("RectangleShape2D_55enf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1052776700]
+shape = SubResource("CapsuleShape2D_2d40k")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1398049684]
+texture_filter = 1
+material = SubResource("CanvasItemMaterial_hxpyr")
+position = Vector2(-7.1054274e-15, 3.75)
+sprite_frames = SubResource("SpriteFrames_8q3d6")
+animation = &"idle"
+autoplay = "idle"

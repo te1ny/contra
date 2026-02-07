@@ -1,13 +1,22 @@
 [gd_scene format=3 uid="uid://chj6c848qfx8h"]
 
-[ext_resource type="Script" uid="uid://brsidrx71ygl2" path="res://src/entities/player/Player2D.cs" id="1_nvek7"]
-[ext_resource type="Script" uid="uid://dkohypo1nryf4" path="res://src/entities/components/move/MoveComponent2D.cs" id="6_fjy3f"]
+[ext_resource type="Script" uid="uid://d4v16rufe4w0" path="res://src/entities/player/Player2D.cs" id="1_nvek7"]
+[ext_resource type="PackedScene" uid="uid://scnatqnvxnda" path="res://src/projectiles/fireball/SmallFireBall.tscn" id="2_gkoa6"]
+[ext_resource type="Script" uid="uid://bhurqlc436l3c" path="res://src/entities/components/move/MoveComponent2D.cs" id="6_fjy3f"]
 [ext_resource type="Texture2D" uid="uid://bwg448j71jr7w" path="res://src/entities/player/sprites/ArchDemonBasicAtk001-Sheet.png" id="6_gkoa6"]
-[ext_resource type="Script" uid="uid://db6d0ory3qli1" path="res://src/entities/components/health/HealthComponent.cs" id="7_dnplh"]
+[ext_resource type="Script" uid="uid://bn7udry487jfg" path="res://src/entities/components/health/HealthComponent.cs" id="7_dnplh"]
 [ext_resource type="Texture2D" uid="uid://cl37slqfsj0v1" path="res://src/entities/player/sprites/ArchDemonDeath001-Sheet.png" id="7_wrrg1"]
-[ext_resource type="Script" uid="uid://cghlqp6vo2o65" path="res://src/entities/components/hitbox/HitboxComponent2D.cs" id="8_gkoa6"]
+[ext_resource type="Script" uid="uid://cy7qta7lvnvi" path="res://src/entities/components/hitbox/HitboxComponent2D.cs" id="8_gkoa6"]
 [ext_resource type="Texture2D" uid="uid://dwq2ni4rrjryv" path="res://src/entities/player/sprites/ArchDemonHurt001-Sheet.png" id="8_oupbo"]
 [ext_resource type="Texture2D" uid="uid://bopcmabg4pnp6" path="res://src/entities/player/sprites/ArchDemonIdle001-Sheet.png" id="9_8olqv"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wrrg1"]
+radius = 14.0
+height = 48.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gkoa6"]
+radius = 14.0
+height = 48.0
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_wrrg1"]
 
@@ -387,14 +396,6 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gkoa6"]
-radius = 14.0
-height = 48.0
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wrrg1"]
-radius = 14.0
-height = 48.0
-
 [node name="Player2D" type="CharacterBody2D" unique_id=1029373410 node_paths=PackedStringArray("healthComponent", "moveComponent2D", "hitboxComponent2D", "animatedSprite2D")]
 scale = Vector2(0.8, 0.8)
 collision_layer = 18
@@ -404,21 +405,10 @@ healthComponent = NodePath("Components/HealthComponent")
 moveComponent2D = NodePath("Components/MoveComponent2D")
 hitboxComponent2D = NodePath("Components/HitboxComponent2D")
 animatedSprite2D = NodePath("AnimatedSprite2D")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1553505836]
-texture_filter = 1
-material = SubResource("CanvasItemMaterial_wrrg1")
-position = Vector2(-7.1054274e-15, 3.75)
-sprite_frames = SubResource("SpriteFrames_pcppg")
-animation = &"attack"
-autoplay = "walk"
-frame = 14
-frame_progress = 1.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=745487721]
-shape = SubResource("CapsuleShape2D_gkoa6")
+currentProjectile = ExtResource("2_gkoa6")
 
 [node name="Components" type="Node2D" parent="." unique_id=1856286641]
+scale = Vector2(0.99999994, 0.99999994)
 
 [node name="MoveComponent2D" type="Node2D" parent="Components" unique_id=1678236998 node_paths=PackedStringArray("Target")]
 script = ExtResource("6_fjy3f")
@@ -426,18 +416,29 @@ Target = NodePath("../..")
 HorizontalSpeed = 125.0
 JumpSpeed = 200.0
 Gravity = 500.0
-metadata/_custom_type_script = "uid://dkohypo1nryf4"
 
 [node name="HealthComponent" type="Node2D" parent="Components" unique_id=382224860]
 script = ExtResource("7_dnplh")
-metadata/_custom_type_script = "uid://db6d0ory3qli1"
 
 [node name="HitboxComponent2D" type="Area2D" parent="Components" unique_id=1258315148 node_paths=PackedStringArray("HealthComponent")]
 collision_layer = 16
 collision_mask = 32
 script = ExtResource("8_gkoa6")
 HealthComponent = NodePath("../HealthComponent")
-metadata/_custom_type_script = "uid://cghlqp6vo2o65"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Components/HitboxComponent2D" unique_id=612148524]
 shape = SubResource("CapsuleShape2D_wrrg1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=745487721]
+shape = SubResource("CapsuleShape2D_gkoa6")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1553505836]
+texture_filter = 1
+material = SubResource("CanvasItemMaterial_wrrg1")
+position = Vector2(-7.105427e-15, 3.7499995)
+scale = Vector2(0.99999994, 0.99999994)
+sprite_frames = SubResource("SpriteFrames_pcppg")
+animation = &"attack"
+autoplay = "walk"
+frame = 14
+frame_progress = 1.0
