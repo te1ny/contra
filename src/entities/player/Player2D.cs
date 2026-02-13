@@ -31,7 +31,7 @@ public partial class Player2D : Entity2D
 		dsm.AddStates(StateBackwardDash, EnterStateBackwardDash, LeaveStateBackwardDash);
 		dsm.AddStates(StateAttack,       null,                   LeaveStateAttack);
 		dsm.AddStates(StateHurt,         EnterStateHurt,         LeaveStateHurt);
-		dsm.AddStates(StateDeath,        null,                   null);
+		dsm.AddStates(StateDeath,        null,                   LeaveStateDeath);
 
 		dsm.SetInitialState(StateWalk);
 		animatedSprite2D.Play("walk");
@@ -79,8 +79,7 @@ public partial class Player2D : Entity2D
 		animatedSprite2D.SelfModulate = new Color(1.0f * glowPower, 0.9f * glowPower, 0.9f * glowPower, 1.0f);
 
 		float horizontalDirection = Input.GetAxis("left", "right");
-		float upDirection         = Input.IsActionPressed("space") ? -1.0f : 0.0f;
-		dashDirection = new(horizontalDirection, upDirection);
+		dashDirection = new(horizontalDirection, 0);
 	}
 
 	private void StateDash()
@@ -162,7 +161,14 @@ public partial class Player2D : Entity2D
 
 	private void LeaveStateDeath()
 	{
-		QueueFree();
+		if (GetParent().Name == "Dungeon")
+		{
+			GetTree().ChangeSceneToFile("res://src/scenes/Dungeon/RestartToDungeon.tscn");
+		}
+		else if (GetParent().Name == "SwampForest")
+		{
+			GetTree().ChangeSceneToFile("res://src/scenes/SwampForest/RestartToSwampForest.tscn");
+		}
 	}
 
 // OTHER

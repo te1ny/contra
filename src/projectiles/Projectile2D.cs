@@ -29,7 +29,9 @@ public partial class Projectile2D : Node2D
 		};
 
 		// emitted when collide with walls
-		AttackComponent.BodyEntered += (_) => QueueFree();
+		AttackComponent.BodyEntered += (_) => {
+            QueueFree();
+        };
 
 		GetTree().CreateTimer(Lifetime).Timeout += QueueFree; 
 	}
