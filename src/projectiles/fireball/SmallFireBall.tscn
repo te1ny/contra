@@ -28,7 +28,7 @@ scale = Vector2(0.2, 0.2)
 script = ExtResource("1_8yijk")
 AttackComponent = NodePath("AttackComponent2D")
 Speed = 600.0
-Lifetime = 5.0
+Lifetime = 0.4
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=359104097]
 material = SubResource("ShaderMaterial_o5owj")
@@ -41,7 +41,6 @@ offset = Vector2(-55, -13)
 [node name="AttackComponent2D" type="Area2D" parent="." unique_id=1474962538]
 collision_layer = 0
 collision_mask = 33
-monitorable = false
 script = ExtResource("2_x8iih")
 Damage = 20.0
 metadata/_custom_type_script = "uid://d212dc5k4rcoh"

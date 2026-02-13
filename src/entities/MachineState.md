@@ -13,8 +13,8 @@
 Условный стек вызовов:
 #1: animatedSprite2D.Play(animationName)
 #2: OnAnimationChanged(): 
-    if (currentAnimation == animationName)
-        dsm.ChangeState(newStateName);
+	if (currentAnimation == animationName)
+		dsm.ChangeState(newStateName);
 #3: Leave(oldStateName);
 #4: EnterState(newStateName) // вызывается единожды
 #5: State(newStateName)      // вызывается каждый тик (PhysicsProcess реализация для конкретного состояния)

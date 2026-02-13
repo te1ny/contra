@@ -10,6 +10,6 @@ public partial class ToExit : Area2D
 	private void OnBodyEntered(Node2D body)
 	{
 		if (body is Player2D)
-			GetTree().Quit();
+			GetTree().ChangeSceneToFile("res://src/scenes/SwampForest/Congratulations.tscn");
 	}
 }

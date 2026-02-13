@@ -1,0 +1,87 @@
+[gd_scene format=3 uid="uid://c0kbhpty2fwsf"]
+
+[ext_resource type="Script" uid="uid://bffkt2xs5wt0y" path="res://src/scenes/Dungeon/RestartTo.cs" id="1_qadrh"]
+
+[sub_resource type="FontFile" id="FontFile_qadrh"]
+cache/0/variation_coordinates = {}
+cache/0/face_index = 0
+cache/0/embolden = 0.0
+cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
+cache/0/spacing_top = 0
+cache/0/spacing_bottom = 0
+cache/0/spacing_space = 0
+cache/0/spacing_glyph = 0
+cache/0/baseline_offset = 0.0
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+
+[sub_resource type="FontFile" id="FontFile_ubcya"]
+cache/0/variation_coordinates = {}
+cache/0/face_index = 0
+cache/0/embolden = 0.0
+cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
+cache/0/spacing_top = 0
+cache/0/spacing_bottom = 0
+cache/0/spacing_space = 0
+cache/0/spacing_glyph = 0
+cache/0/baseline_offset = 0.0
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qadrh"]
+
+[node name="RestartToSwampForest" type="Node2D" unique_id=2122401977 node_paths=PackedStringArray("_restartButton", "_exitButton")]
+script = ExtResource("1_qadrh")
+_restartButton = NodePath("CanvasLayer/ColorRect/Restart")
+_targetScene = "res://src/scenes/SwampForest/SwampForest.tscn"
+_exitButton = NodePath("CanvasLayer/ColorRect/Exit")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1961672332]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=1442185989]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="Restart" type="Button" parent="CanvasLayer/ColorRect" unique_id=1444427998]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.5
+offset_top = -15.5
+offset_right = 32.5
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = SubResource("FontFile_qadrh")
+text = "Restart"
+metadata/_edit_use_anchors_ = true
+
+[node name="Exit" type="Button" parent="CanvasLayer/ColorRect" unique_id=239928193]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -37.0
+offset_top = -31.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_fonts/font = SubResource("FontFile_ubcya")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_qadrh")
+text = "Exit"
+metadata/_edit_use_anchors_ = true
